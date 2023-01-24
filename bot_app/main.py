@@ -13,9 +13,7 @@ dp = Dispatcher(bot=bot)
 async def join_request(update: types.ChatJoinRequest):
     await update.approve()
     await bot.send_message(update.chat.id, "New user accepted")
-    await bot.send_message(
-        update.from_user.id, "You entered the private group via invite link"
-    )
+    await bot.send_message(update.from_user.id, "You entered the private group via invite link")
 
 
 @dp.channel_post_handler()
