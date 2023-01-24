@@ -1,0 +1,1 @@
+from .image_paths_builders import greeting_image_path

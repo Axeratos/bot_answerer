@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 .idea/
+
+admin_panel/media/
+!admin_panel/media/.gitkeep

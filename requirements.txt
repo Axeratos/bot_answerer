@@ -1,0 +1,11 @@
+# core
+django==4.1.5
+aiogram==2.24
+Pillow==9.4.0
+
+# code formatting & linting
+pre-commit==2.21.0
+black==22.12.0
+flake8==6.0.0
+
+python-dotenv==0.21.1
