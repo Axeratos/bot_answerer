@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  admin_app:
+    volumes:
+      - ./admin_app/admin_panel/media:/workdir/media:rw
+    env_file:
+      - .env
+    build:
+      context: ./admin_app
+      dockerfile: admin.dockerfile
+    profiles:
+      - full_run
+    user: "1000"
+
+  db:
+    image: postgres:15

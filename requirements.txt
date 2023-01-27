@@ -1,6 +1,6 @@
 # core
 django==4.1.5
-aiogram==2.24
+aiogram==3.0.0b6
 Pillow==9.4.0
 
 # code formatting & linting
