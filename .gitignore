@@ -130,5 +130,5 @@ dmypy.json
 
 .idea/
 
-admin_panel/media/
-!admin_panel/media/.gitkeep
+admin_app/admin_panel/media/
+!admin_app/admin_panel/media/.gitkeep
