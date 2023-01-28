@@ -18,5 +18,10 @@ RUN pip install --upgrade pip && \
     pip install --requirement requirements.txt
 
 COPY --chown=${USER} ./admin_panel admin_panel
+COPY --chown=${USER} --chmod=755 ./start.sh /start.sh
+
+USER ${USER}
+
+ENTRYPOINT ["/start.sh"]
 
 CMD ["python", "admin_panel/manage.py", "runserver"]
