@@ -1,2 +1,2 @@
-admin_panel/media
+admin_panel/media/*
 !admin_panel/media/.gitkeep
