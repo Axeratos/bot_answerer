@@ -24,4 +24,4 @@ USER ${USER}
 
 ENTRYPOINT ["/start.sh"]
 
-CMD ["python", "admin_panel/manage.py", "runserver"]
+CMD ["python", "admin_panel/manage.py", "runserver", "0.0.0.0:8000"]
