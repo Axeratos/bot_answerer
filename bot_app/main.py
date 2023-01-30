@@ -1,31 +1,37 @@
+import asyncio
 import os
+import pathlib
+
+from aiogram import Bot, Dispatcher, Router
+from aiogram import types
+
 from dotenv import load_dotenv
 
-from aiogram import Bot, Dispatcher, executor, types
+from bot_app.db.db_queries import get_chat
 
 load_dotenv()
 
 bot = Bot(token=os.getenv("TOKEN"), parse_mode="HTML")
-dp = Dispatcher(bot=bot)
+dp = Dispatcher()
+router = Router()
+
+MEDIA_DIR = pathlib.Path(__file__).resolve().parent.parent.joinpath("admin_app/admin_panel/media")
 
 
-@dp.chat_join_request_handler()
-async def join_request(update: types.ChatJoinRequest):
-    await update.approve()
-    await bot.send_message(update.chat.id, "New user accepted")
-    await bot.send_message(update.from_user.id, "You entered the private group via invite link")
+@router.chat_join_request()
+async def channel_join_request_handler(join_request: types.ChatJoinRequest):
+    await join_request.approve()
 
 
-@dp.channel_post_handler()
-async def message_h(message: types.Message):
-    await message.answer("New post")
-    print(await message.chat.get_url())
+@router.channel_post()
+async def test(message: types.Message, context: dict):
+    url = message.chat.username
+    chat_object = await get_chat(url)
+    image = types.FSInputFile(MEDIA_DIR.joinpath(chat_object.greeting_image))
+    await message.answer_photo(photo=image, caption=chat_object.greeting_text)
 
 
-@dp.message_handler(commands=["start"])
-async def start_command(message: types.Message):
-    await message.answer("Hello. I am working")
-
-
-if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True)
+if __name__ == '__main__':
+    dp.include_router(router)
+    db_path = pathlib.Path(__file__).resolve().parent.joinpath("admin_panel/db.sqlite3")
+    asyncio.run(dp.start_polling(bot, context={"hello": "user"}))
