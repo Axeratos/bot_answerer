@@ -7,7 +7,6 @@ services:
   bot:
     env_file:
       - .env
-      - .env.docker
     volumes:
       - ./admin_app/admin_panel/media:/workdir/media:rw
     build:
@@ -24,7 +23,10 @@ services:
   admin_app:
     ports:
       - "8000:8000"
+    expose:
+      - 8000
     volumes:
+      - ./admin_app/admin_panel/staticfiles:/workdir/staticfiles
       - ./admin_app/admin_panel/media:/workdir/media:rw
     env_file:
       - .env
@@ -50,3 +52,18 @@ services:
     profiles:
       - full_run
       - local_dev
+
+  proxy:
+    image: nginx
+    ports:
+      - "1337:80"
+    build:
+      context: ./nginx
+      dockerfile: nginx.dockerfile
+    depends_on:
+      - admin_app
+    volumes:
+      - ./admin_app/admin_panel/staticfiles:/workdir/staticfiles:ro
+      - ./admin_app/admin_panel/media:/workdir/media:rw
+    profiles:
+      - full_run
