@@ -29,7 +29,7 @@ async def test(message: types.Message):
     await message.answer_photo(photo=image, caption=chat_object.greeting_text)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     dp.include_router(router)
     db_path = pathlib.Path(__file__).resolve().parent.joinpath("admin_panel/db.sqlite3")
     print("[INFO] Bot started [INFO]")

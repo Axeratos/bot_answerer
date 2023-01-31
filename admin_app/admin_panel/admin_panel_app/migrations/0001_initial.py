@@ -28,9 +28,7 @@ class Migration(migrations.Migration):
                 ("greeting_text", models.TextField()),
                 (
                     "greeting_image",
-                    models.ImageField(
-                        upload_to=image_paths_builders.greeting_image_path
-                    ),
+                    models.ImageField(upload_to=image_paths_builders.greeting_image_path),
                 ),
             ],
         ),
