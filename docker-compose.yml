@@ -4,6 +4,23 @@ volumes:
   postgres_data: { }
 
 services:
+  bot:
+    env_file:
+      - .env
+      - .env.docker
+    volumes:
+      - ./admin_app/admin_panel/media:/workdir/media:rw
+    build:
+      context: bot_app
+      dockerfile: bot.dockerfile
+    environment:
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - postgres
+    profiles:
+      - full_run
+    user: "1000"
+
   admin_app:
     ports:
       - "8000:8000"
