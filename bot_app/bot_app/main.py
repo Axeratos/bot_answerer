@@ -20,6 +20,11 @@ MEDIA_DIR1 = pathlib.Path(__file__).resolve().parent.parent.joinpath("media")
 @router.chat_join_request()
 async def channel_join_request_handler(join_request: types.ChatJoinRequest):
     await join_request.approve()
+    chat_object = await get_chat(join_request.chat.username)
+    if not chat_object:
+        return
+    image = await media_url_builder(chat_object.greeting_image)
+    await bot.send_photo(chat_id=join_request.from_user.id, photo=image, caption=chat_object.greeting_text)
 
 
 @router.channel_post()
