@@ -18,10 +18,14 @@ RUN pip install --upgrade pip && \
     pip install --requirement requirements.txt
 
 COPY --chown=${USER} ./admin_panel admin_panel
-COPY --chown=${USER} --chmod=755 ./start.sh /start.sh
+RUN mkdir -p "./admin_panel/media"
+RUN mkdir -p "./admin_panel/static"
+
+COPY --chown=${USER} --chmod=755 entrypoint.sh /entrypoint.sh
+COPY --chown=${USER} --chmod=755 start.sh /start.sh
 
 USER ${USER}
 
-ENTRYPOINT ["/start.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["python", "admin_panel/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["/start.sh"]

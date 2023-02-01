@@ -8,7 +8,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./admin_app/admin_panel/media:/workdir/media:rw
+      - ./admin_app/admin_panel/media:/workdir/media
     build:
       context: bot_app
       dockerfile: bot.dockerfile
@@ -26,8 +26,8 @@ services:
     expose:
       - 8000
     volumes:
-      - ./admin_app/admin_panel/staticfiles:/workdir/staticfiles
-      - ./admin_app/admin_panel/media:/workdir/media:rw
+      - ./admin_app/admin_panel/static:/workdir/admin_panel/static
+      - ./admin_app/admin_panel/media:/workdir/admin_panel/media:rw
     env_file:
       - .env
     environment:
@@ -63,7 +63,7 @@ services:
     depends_on:
       - admin_app
     volumes:
-      - ./admin_app/admin_panel/staticfiles:/workdir/staticfiles:ro
-      - ./admin_app/admin_panel/media:/workdir/media:rw
+      - ./admin_app/admin_panel/static:/workdir/static:ro
+      - ./admin_app/admin_panel/media:/workdir/media
     profiles:
       - full_run
