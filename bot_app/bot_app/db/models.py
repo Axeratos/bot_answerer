@@ -8,5 +8,5 @@ class ChatModel(Base):
     id = Column(BigInteger, primary_key=True, autoincrement=True)
     title = Column(String(50))
     invite_link = Column(String(255))
-    greeting_text = Column(Text)
+    greeting_text = Column(Text(1024))
     greeting_image = Column(String(100))

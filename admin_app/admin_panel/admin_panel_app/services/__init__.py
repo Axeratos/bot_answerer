@@ -1,1 +1,2 @@
 from .image_paths_builders import greeting_image_path
+from .model_validators import image_size_validator
