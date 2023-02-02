@@ -1,6 +1,5 @@
 from django.db import models
-from .services import greeting_image_path
-from .services import image_size_validator
+from .services import greeting_image_path, image_size_validator
 
 
 class Chat(models.Model):
